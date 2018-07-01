@@ -14,6 +14,8 @@ Um den Controller zu Nutzen, müssen folgende Schritte befolg werden:
 6. Arduino anschließen
 7. Processing Sketch Starten
 
+Optional: Statt Arduino- und Processing-Code einzeln herunterzuladen kann auch das gesamte Repository heruntergeladen werden.
+
 ## Hinweise
 - Die Autoren des Projekts übernehmen keinerlei Hauftung u.ä. für durch die Nutzung oder den Missbrauch des Projekts entstandene Schäden.
 - Alle Dateien dieses Projekts sind zur privaten Nutzung freigegeben.
