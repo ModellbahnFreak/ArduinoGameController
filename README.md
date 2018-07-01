@@ -7,7 +7,7 @@ Um den Controller zu Nutzen, müssen folgende Schritte befolg werden:
 2. [Arduino-Code](Arduino/Controller_Steuerung/Controller_Steuerung.ino) herunterladen und mit der [Arduino IDE](https://www.arduino.cc/en/Main/Software) öffnen
 3. Arduino-Code kompilieren und auf den Arduino hochladen
 4. [Processing-Sketch](Processing/Spiele) herunterladen (ganzer Ordner) und mit [Processing](https://processing.org/download/) öffnen
-5. U.U. in Zeile 1 im Processing Sketch (int serialPort = 1;) die Zahl anpassen, um den richtigen Serialport zu wählen
+5. U.U. in Zeile 1 im Processing Sketch (Datei Spiele.pde) (int serialPort = 1;) die Zahl anpassen, um den richtigen Serialport zu wählen
    - Einmal Sketch Starten
    - In Ausgabe Konsole Nummer des entspechenden Com-Ports nachlesen ([Nummer] "COMxy")
    - Nummer in Zeile 1 eintragen (1 ersetzen)
