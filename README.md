@@ -21,3 +21,5 @@ Optional: Statt Arduino- und Processing-Code einzeln herunterzuladen kann auch d
 - Alle Dateien dieses Projekts sind zur privaten Nutzung freigegeben.
 - Jegliche Weiterverbreitung, Veränderung und kommerzielle Nutzung ist untersagt.
 - Alle Teile des Projekts sind noch in Entwicklung. Folglich können an allen Stellen noch unerwartete Fehler aufteten. Selbst wenn eine Version als "funktionierend" gekennzeichnet ist, so wurde dies lediglich auf dem Enwicklungssystem getestet und gilt dies nicht zwingend für andere Systeme.
+
+> Projekt von F.B., K.W. & G.R.
