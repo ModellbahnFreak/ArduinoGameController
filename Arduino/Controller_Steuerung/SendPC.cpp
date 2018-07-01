@@ -1,21 +1,43 @@
+/* Arduino SendPC Library
+ * Entwicklung Georg Reißner, 2018
+ * HINWEIS: BITTE BEI NUTZUNG DER LIBRARY DEN
+ * SERIELLEN PORT DES ARDUINO NICHT NUTZEN!
+ * Beschreibung zu Funktionen im Header-File (SendPC.h)
+ * Sendet und Empfängt Daten für verschiedene
+ * Sensoren und Aktoren von/zum PC, wo eine ähnliche
+ * Library die Daten entgegennimmt
+ * Die Lirary enthält einen Puffer für die Daten
+ * NUR ZUR PRIVATEN VERWENDUNG
+ */
+
 #include "Arduino.h"
 #include "SendPC.h"
 
-SendPC::SendPC(int sinnloseZahl) {
+//Konstruktor
+SendPC::SendPC(int portNum) {}
 
-}
-
+//Init-Methode
 void SendPC::begin() {
   Serial.begin(19200);
   readPos = 0;
 }
 
+//Hilfsmethode zum Empfnangen
 void SendPC::recvData() {
-  /*wenn pos=0: Daten durchgehen
-     wenn 00 ff gedunden, in array schreiben, pos auf 2
-     wenn pos>0: daten in array schreiben, pos++
-     wenn ff 00 gefunden, in array schreiben, pos +2, parserecv, pos=0
-  */
+  /* Funktiosweise Empfagen:
+   *  Wenn mehr als 500 Bytes im Puffer,
+   *    Solange Bytes lesen, bis Puffergröße < 500 (Overload-Schutz)
+   *  Wenn readPos <= 0:
+   *    Prüfen, ob Header "0x00 0xFF" empfangen, wenn ja:
+   *      Header ins readData-Array und readPos auf 2
+   *    Sonst:
+   *      Nächstes Byte lesen
+   *  Wenn readPos > 0:
+   *    Aktuelles Byte ins readData-Array und readPos+1
+   *    Wenn End-Head gefunden:
+   *      Empfangene Daten Parsen
+   *      readPos = 0
+   */
   while (Serial.available() > 0) {
     while (Serial.available() > 500) {
       Serial.read();
@@ -54,7 +76,21 @@ void SendPC::recvData() {
   }
 }
 
+//Analysiert und speichert die Empfangenen Daten
 void SendPC::parseRecv() {
+  /*Funktionsweise Parsen
+   * Prüfen, welcher Sensor/Aktor Daten
+   * Display:
+   *   Daten nach empfangener Länge durchgehen und zum String hinzufügen
+   * RGB:
+   *   Alle 3 Empfangenen Bytes ins RGB-Array schreiben
+   * Spannung:
+   *   Wenn Nummer der Spannung zw. 1 und 4:
+   *     Spannung an die Stelle ins Array
+   * Servo:
+   *   Wenn Nummer zw. 1 und 3:
+   *     Wert ins Array
+   */
   //if (readData[0] == 0x00 && readData[1] == 0xFF) {
   //Serial.println("Parse lauched");
   switch (readData[3]) {
@@ -77,18 +113,19 @@ void SendPC::parseRecv() {
     case 6: //Voltage
       //Serial.println("Received voltage");
       if (readData[4] <= 4 && readData[4] > 0) {
-        voltage[(int)readData[4]] = readData[5];
+        voltage[(int)readData[4]-1] = readData[5];
       }
       break;
     case 7: //Servo
       if (readData[4] <= 4 && readData[4] > 0) {
-        servo[readData[4]] = readData[5];
+        servo[readData[4]-1] = readData[5];
       }
       break;
   }
   //}
 }
 
+//Hilfsfunktion zum Senden der Daten (setzt Nachricht zusammen)
 void SendPC::sendData(byte sensor, byte num, byte* data, byte dataLen) {
   Serial.write(0x00);
   Serial.write(0xFF);
