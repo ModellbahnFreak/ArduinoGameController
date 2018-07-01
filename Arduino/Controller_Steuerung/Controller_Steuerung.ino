@@ -83,7 +83,7 @@ void knopf() {
   pc.sendBtn(2, digitalRead(A3));
   pc.sendBtn(3, digitalRead(A4));
   pc.sendBtn(4, digitalRead(A5));
-  pc.sendBtn(20, digitalRead(reset));
+  //pc.sendBtn(20, digitalRead(reset));
 
 }
 
