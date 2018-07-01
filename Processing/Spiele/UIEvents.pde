@@ -1,0 +1,3 @@
+interface UIEvents {
+  void click();
+}
